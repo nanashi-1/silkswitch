@@ -1,31 +1,29 @@
-use crate::values::rosaries::Rosaries;
+use crate::error::ParsingError;
 
 pub mod rosaries;
 
-pub enum SaveValueTypes {
-    Int(Box<dyn SaveValue<usize>>),
-    String(Box<dyn SaveValue<String>>),
-    Boolean(Box<dyn SaveValue<bool>>),
+pub enum ValueType {
+    Int(i64),
+    String(String),
+    Boolean(bool),
 }
 
-pub trait SaveValue<T> {
-    fn new(json: &str) -> Self
-    where
-        Self: Sized;
-
+pub trait SaveValue {
     fn get_title() -> String
     where
         Self: Sized;
     fn get_description() -> String
     where
         Self: Sized;
-    fn get_value(&self) -> T;
+    fn get_value(&self) -> ValueType;
 
-    fn set_value(&mut self, json: &mut str, value: T);
+    fn update_json_with_value(
+        &mut self,
+        json: &mut String,
+        value: ValueType,
+    ) -> Result<(), ParsingError>;
 }
 
-pub fn initialize_all_save_values(json: &str) -> Vec<SaveValueTypes> {
-    let rosaries = Rosaries::new(json);
-
-    vec![SaveValueTypes::Int(Box::new(rosaries))]
+pub fn initialize_all_save_values(json: &str) -> Vec<Box<dyn SaveValue>> {
+    todo!()
 }
