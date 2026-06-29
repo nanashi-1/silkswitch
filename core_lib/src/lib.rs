@@ -9,7 +9,7 @@ use crate::{
 mod cipher;
 mod error;
 mod headers;
-mod values;
+pub mod values;
 
 pub fn encode(bytes: &[u8]) -> Result<Vec<u8>, EncodingError> {
     let encrypted_bytes = encrypt(bytes)?;
