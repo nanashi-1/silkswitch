@@ -1,0 +1,54 @@
+import {
+    HorizontalBox,
+    VerticalBox,
+    LineEdit,
+    CheckBox,
+} from "std-widgets.slint";
+
+import { ValueType } from "value-type.slint";
+
+
+export component ListValue {
+    max-height: 100px;
+
+    in property <string> title;
+    in property <string> description;
+    in property <string> value;
+    in property <ValueType> value-type;
+    in property <string> key;
+
+    Rectangle {
+        width: parent.width;
+        HorizontalBox {
+            padding-right: 1rem;
+            cross-axis-alignment: center;
+            alignment: space-between;
+            VerticalBox {
+                Text {
+                    text: title;
+                    font-size: 1.5rem;
+                    font-weight: 500;
+                }
+
+                Text {
+                    text: description;
+                }
+            }
+
+            if value-type == ValueType.boolean: CheckBox {
+                checked: value == "true";
+            }
+
+            if value-type == ValueType.integer: LineEdit {
+                width: 10rem;
+                input-type: number;
+                text: value;
+            }
+
+            if value-type == ValueType.str: LineEdit {
+                width: 10rem;
+                text: value;
+            }
+        }
+    }
+}

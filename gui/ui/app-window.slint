@@ -1,0 +1,15 @@
+import { ValueList, ListDesc } from "value-list.slint";
+import { ValueType } from "value-type.slint";
+
+export { ListDesc }
+export { ValueType }
+export component AppWindow inherits Window {
+    no-frame: false;
+    in property <[ListDesc]> values;
+
+    ValueList {
+        values: values;
+        width: parent.width;
+        height: parent.height;
+    }
+}

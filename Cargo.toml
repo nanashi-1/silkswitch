@@ -1,4 +1,10 @@
 [workspace]
+members = [
+    "core_lib",
+    "gui",
+]
 resolver = "3"
-members = ["core_lib"]
 
+[profile.release]
+lto = true
+codegen-units = 1
